@@ -32,10 +32,9 @@ Where $X_{off,i}$ represents the deterministic geometric offset of the independe
 
 This repository contains the core methodological framework and open-source assets:
 * `/data` : Testdatasets.
-* `/src` : Python algorithms utilizing NumPy for element-wise, vectorized data processing (filtering, localized/global COP calculation, and WDI extraction).
 * `/docs` : Published Paper.
 * `/hardware_concept` : PDF Document for the dimension.
-
+* `/src` : Python algorithms utilizing NumPy for element-wise, vectorized data processing (localized/global COP calculation, and WDI extraction).
 
 ## 🤝 Contributing & Open Science
 
