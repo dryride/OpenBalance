@@ -31,9 +31,11 @@ Where $X_{off,i}$ represents the deterministic geometric offset of the independe
 ## 🛠️ Repository Contents
 
 This repository contains the core methodological framework and open-source assets:
-* `/core` : Python algorithms utilizing NumPy for element-wise, vectorized data processing (filtering, localized/global COP calculation, and WDI extraction).
-* `/docs` : Methodological documentation, mathematical proofs, and schematic sensor topography layouts (row-major numbering conventions).
-* `/hardware_concept` : Engineering guidelines and design principles for building compliant mechanisms (living hinges) and high surface-hardness baseplates.
+* `/data` : Testdatasets.
+* `/src` : Python algorithms utilizing NumPy for element-wise, vectorized data processing (filtering, localized/global COP calculation, and WDI extraction).
+* `/docs` : Published Paper.
+* `/hardware_concept` : PDF Document for the dimension.
+
 
 ## 🤝 Contributing & Open Science
 
