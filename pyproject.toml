@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openbalance"
+version = "0.1.0"
+description = "A hardware-agnostic Python library for processing and analyzing posturography data."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Otto Hofstätter", email = "otto.hofstatter@miun.se" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Medical Science Apps."
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "fpdf2"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/dryride/OpenBalance"
+"Repository" = "https://github.com/dryride/OpenBalance"
+
+[tool.setuptools.packages.find]
+include = ["openbalance", "openbalance.*"]
