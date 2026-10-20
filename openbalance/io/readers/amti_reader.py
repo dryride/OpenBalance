@@ -2,47 +2,48 @@
 import numpy as np
 import pandas as pd
 
-class AmtiCsvReader:
+from openbalance.io.readers.base import BaseReader
+from openbalance.core.trial import Trial
+
+class AmtiCsvReader(BaseReader):
     """
     A custom reader for AMTI measurement data in .csv format.
     Reads Fx, Fy, Fz, Mx, My, Mz, COPx and COPy.
     """
     
-    def __init__(self):
-        pass
-
-    def read(self, filepath, sample_rate=1000):
+    def read(self, filepath: str, sample_rate: float = 1000.0) -> Trial:
         """
         Reads an AMTI CSV file and returns a Trial object, 
         which is compatible with the openbalance library.
         """
-        class Trial:
-            def __init__(self):
-                self.parameters = {}
-                self.sample_rate = sample_rate
-                self.condition = "Unknown"
-        
-        trial = Trial()
-        
         try:
-            # Uses exactly your successfully tested, robust variant
-            data = pd.read_csv(filepath, sep=';', decimal=',').to_numpy(dtype=float)
+            # Nutzt genau deine erfolgreich getestete, robuste Pandas-Variante
+            df = pd.read_csv(filepath, sep=';', decimal=',')
+            data = df.to_numpy(dtype=float)
         except Exception as e:
             raise ValueError(f"Error reading the file {filepath} with pandas: {e}")
             
         if data.shape[1] < 8:
             raise ValueError(f"Could not find enough columns in {filepath} (expected at least 8).")
 
-        trial.parameters['F_x'] = data[:, 0]
-        trial.parameters['F_y'] = data[:, 1]
-        trial.parameters['F_z'] = data[:, 2]
-        trial.parameters['M_x'] = data[:, 3]
-        trial.parameters['M_y'] = data[:, 4]
-        trial.parameters['M_z'] = data[:, 5]
+        # Die Kanal-Namen in exakt der Reihenfolge der AMTI-Daten
+        channel_names = ['F_x', 'F_y', 'F_z', 'M_x', 'M_y', 'M_z', 'COP_x', 'COP_y']
         
-        # IMPORTANT: The keys 'COP_x' and 'COP_y' are strictly 
-        # required in the rest of the OpenBalance pipeline!
-        trial.parameters['COP_x'] = data[:, 6]
-        trial.parameters['COP_y'] = data[:, 7]
+        # Saubere Initialisierung wie im OpenBalanceReader
+        trial = Trial(
+            raw_data=data[:, :8],
+            sample_rate=sample_rate,
+            channel_names=channel_names
+        )
+        
+        trial.condition = "Unknown"
+        trial.duration = len(data) / sample_rate
+        
+        # Fallback: Falls einige deiner Skripte die Werte zwingend im 'parameters'-Dict 
+        # erwarten (und die Trial-Basisklasse dies nicht automatisch mappt), setzen wir es manuell.
+        if not hasattr(trial, 'parameters'):
+            trial.parameters = {}
+        for i, name in enumerate(channel_names):
+            trial.parameters[name] = data[:, i]
         
         return trial
