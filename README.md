@@ -15,8 +15,8 @@ The framework integrates four key pillars:
 
 * **Multi-Platform Interoperability:** Standardizes raw center of pressure (COP) and ground reaction force data from commercial vendors (Kistler, AMTI, Tetrax, Tymo) and custom hardware into a unified `Trial` object via Python Abstract Base Classes.
 * **Unconstrained Foot Placement & Ergonomics:** Platform dimensions (355 × 460 mm) accommodate foot lengths up to EU shoe size 55 with a 10° natural toe-out angle, eliminating artificial stance constraints.
-* **Cascading Mathematical Framework:** Two-stage vectorized COP fusion combining localized sub-platform coordinates via deterministic geometric offsets into an unbiased global trajectory (<1% mechanical crosstalk).
-* **Outlier Excursion Ratio (OER):** Dimensionless metric ($\text{OER} = \text{CHA} / \text{PEA}_{95\%}$) contrasting the Convex Hull Area against the 95% Prediction Ellipse to isolate and quantify transient corrective excursions beyond core sway.
+* **Cascading Mathematical Framework:** Two-stage vectorized COP fusion combining localized sub-platform coordinates via deterministic geometric offsets into an unbiased global trajectory (< 1% mechanical crosstalk).
+* **Outlier Excursion Ratio (OER):** Dimensionless metric ($\text{OER} = \text{CHA} / \text{PEA}_{95\\%}$) contrasting the Convex Hull Area against the 95% Prediction Ellipse to isolate and quantify transient corrective excursions beyond core sway.
 * **Progressive 8-Stage Assessment Protocol:** Standardized testing protocol scaling from baseline static stance (eyes open/closed) to compliant foam pads and dynamic multi-axial perturbation on an unstable base (Kalotte / wobble board).
 * **Decoupled Clinical Metrics & Reporting:** Direct quantification of quadrant asymmetry via the Weight Distribution Index (WDI), zero-phase Butterworth filtering (default 13 Hz), and automated multi-lingual PDF/CSV/JSON export.
 
@@ -70,7 +70,7 @@ $$
 Quantifies transient, high-amplitude corrective movements by contrasting boundary and statistical sway models:
 
 $$
-\text{OER} = \frac{\text{CHA}}{\text{PEA}_{95\%}}, \quad \text{OEA} = \text{CHA} - \text{PEA}_{95\%}
+\text{OER} = \frac{\text{CHA}}{\text{PEA}_{95\\%}}, \quad \text{OEA} = \text{CHA} - \text{PEA}_{95\\%}
 $$
 
 * $\text{OER} \approx 1.0$: Stationary, homogeneous sway pattern.
