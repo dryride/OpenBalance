@@ -16,7 +16,7 @@ The framework integrates four key pillars:
 * **Multi-Platform Interoperability:** Standardizes raw center of pressure (COP) and ground reaction force data from commercial vendors (Kistler, AMTI, Tetrax, Tymo) and custom hardware into a unified `Trial` object via Python Abstract Base Classes.
 * **Unconstrained Foot Placement & Ergonomics:** Platform dimensions (355 × 460 mm) accommodate foot lengths up to EU shoe size 55 with a 10° natural toe-out angle, eliminating artificial stance constraints.
 * **Cascading Mathematical Framework:** Two-stage vectorized COP fusion combining localized sub-platform coordinates via deterministic geometric offsets into an unbiased global trajectory (<1% mechanical crosstalk).
-* **Outlier Excursion Ratio (OER):** Dimensionless metric (($\text{OER} = \text{CHA} / \text{PEA}_{95\%}$)) contrasting the Convex Hull Area against the 95% Prediction Ellipse to isolate and quantify transient corrective excursions beyond core sway.
+* **Outlier Excursion Ratio (OER):** Dimensionless metric ($\text{OER} = \text{CHA} / \text{PEA}_{95\%}$) contrasting the Convex Hull Area against the 95% Prediction Ellipse to isolate and quantify transient corrective excursions beyond core sway.
 * **Progressive 8-Stage Assessment Protocol:** Standardized testing protocol scaling from baseline static stance (eyes open/closed) to compliant foam pads and dynamic multi-axial perturbation on an unstable base (Kalotte / wobble board).
 * **Decoupled Clinical Metrics & Reporting:** Direct quantification of quadrant asymmetry via the Weight Distribution Index (WDI), zero-phase Butterworth filtering (default 13 Hz), and automated multi-lingual PDF/CSV/JSON export.
 
@@ -53,19 +53,25 @@ filtered_trial.export_pdf_report("report_M4.pdf")
 ## 📐 Mathematical Principles
 
 ### 1. Cascading Global COP Calculation
-For distributed sub-platforms ($i = 1 \dots 4$), localized coordinates ($X_{i,\text{local}}, Y_{i,\text{local}}$) are mapped to the global origin using deterministic geometric offsets ($X_{\text{off},i}, Y_{\text{off},i}$):
+For distributed sub-platforms ($i = 1, \dots, 4$), localized coordinates ($X_{i,\text{local}}, Y_{i,\text{local}}$) are mapped to the global origin using deterministic geometric offsets ($X_{\text{off},i}, Y_{\text{off},i}$):
 
-$$X_{\text{global}} = \frac{\sum_{i=1}^{4} \left( (X_{i,\text{local}} + X_{\text{off},i}) \cdot F_i \right)}{F_{\text{total}}}$$
+$$
+X_{\text{global}} = \frac{\sum_{i=1}^{4} \left( (X_{i,\text{local}} + X_{\text{off},i}) \cdot F_i \right)}{F_{\text{total}}}
+$$
 
 ### 2. Weight Distribution Index (WDI)
 Quantifies postural load asymmetry across the four quadrants (left/right, heel/forefoot) relative to the physiological 25% baseline:
 
-$$\text{WDI} = \sqrt{\frac{\sum_{q} (WD_q - 25)^2}{4}}$$
+$$
+\text{WDI} = \sqrt{\frac{\sum_{q} (\text{WD}_q - 25)^2}{4}}
+$$
 
 ### 3. Outlier Excursion Ratio (OER) & Area (OEA)
 Quantifies transient, high-amplitude corrective movements by contrasting boundary and statistical sway models:
 
-$$\text{OER} = \frac{\text{CHA}}{\text{PEA}_{95\%}}, \quad \text{OEA} = \text{CHA} - \text{PEA}_{95\%}$$
+$$
+\text{OER} = \frac{\text{CHA}}{\text{PEA}_{95\%}}, \quad \text{OEA} = \text{CHA} - \text{PEA}_{95\%}
+$$
 
 * $\text{OER} \approx 1.0$: Stationary, homogeneous sway pattern.
 * $\text{OER} \gg 1.0$: Transient corrective excursions extending beyond core sway.
