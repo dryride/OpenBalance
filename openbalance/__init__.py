@@ -16,7 +16,7 @@
 OpenBalance - Ein umfassendes Framework zur Verarbeitung von Posturographie-Daten.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # Zentrale Datenstrukturen für den Nutzer direkt importierbar machen
 from .core.trial import Trial
