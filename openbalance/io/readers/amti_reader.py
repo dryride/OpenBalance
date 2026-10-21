@@ -26,6 +26,17 @@ class AmtiCsvReader(BaseReader):
         if data.shape[1] < 8:
             raise ValueError(f"Could not find enough columns in {filepath} (expected at least 8).")
 
+        # --- UMSKALIERUNG & VERSCHIEBUNG ---
+        # 1. Von Metern in Zentimeter umrechnen (AMTI exportiert in m, OpenBalance erwartet cm)
+        data[:, 6] *= 100.0  # COP_x
+        data[:, 7] *= 100.0  # COP_y
+
+        # 2. Auf den Koordinatenursprung (0,0) verschieben
+        # Die Platte ist 500 mm (50 cm) breit und 400 mm (40 cm) hoch.
+        # Wir verschieben um die Hälfte, um das Zentrum der Platte exakt auf (0,0) zu zentrieren.
+        data[:, 6] -= 25.0  # X: 50cm / 2
+        data[:, 7] -= 20.0  # Y: 40cm / 2
+
         # Die Kanal-Namen in exakt der Reihenfolge der AMTI-Daten
         channel_names = ['F_x', 'F_y', 'F_z', 'M_x', 'M_y', 'M_z', 'COP_x', 'COP_y']
         
